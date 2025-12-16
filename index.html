@@ -23,7 +23,21 @@
           <p>Your Life as YOU see it!</p>
         </header>
         <div class="page__body">
-          <p><u>Categories</u></p>
+          <div class="categories-manager">
+            <form class="category-form" aria-label="Add category" onsubmit="return false;">
+              <label for="cat-name" class="visually-hidden">Category name</label>
+              <input id="cat-name" class="cat-input" type="text" placeholder="New category name" aria-label="Category name" required />
+
+              <label for="cat-color" class="visually-hidden">Category color</label>
+              <input id="cat-color" class="cat-color" type="color" value="#7c3aed" aria-label="Choose color" />
+
+              <button id="add-category" class="add-btn" type="button">Add Category</button>
+            </form>
+
+            <ul id="categories-list" class="categories-list" aria-live="polite" aria-label="Existing categories">
+              <!-- categories will be rendered here -->
+            </ul>
+          </div>
         </div>
       </article>
 
