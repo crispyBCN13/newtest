@@ -67,6 +67,10 @@ body {
   border: 1px solid var(--stroke);
   background: rgba(255,255,255,0.03);
   border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto; /* allow vertical scrolling inside a page */
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Bottom nav */
@@ -148,9 +152,29 @@ body {
 .quick-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+  gap: 10px;
   align-items: stretch;
-  height: 100%;
+  grid-auto-rows: minmax(64px, auto);
+  height: auto; /* allow following content (mood check) to remain visible */
+}
+
+/* Mood check */
+.mood-check { margin-top: 14px; padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); }
+.mood-check { display: flex; flex-direction: column; justify-content: center; flex: 1 1 auto; }
+.mood-header { display:flex; flex-direction:column; gap:6px; margin-bottom:8px; }
+.mood-desc { font-size:13px; color:var(--muted); }
+.mood-controls { display:flex; flex-direction:column; gap:8px; }
+.mood-scale { display:flex; align-items:center; gap:10px; }
+.mood-slider { flex:1; -webkit-appearance:none; height:6px; border-radius:6px; background: rgba(255,255,255,0.06); }
+.mood-slider::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:var(--accent); border:2px solid rgba(255,255,255,0.9); box-shadow:0 2px 6px rgba(0,0,0,0.25); }
+.mood-slider::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:var(--accent); border:2px solid rgba(255,255,255,0.9); }
+.mood-label { font-size:20px; }
+.mood-label svg { width:20px; height:20px; display:block; }
+.mood-status { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.mood-text { font-weight:700; color:var(--text); }
+
+@media (min-width:480px) {
+  .mood-check { padding:16px; }
 }
 
 .grid-btn {
@@ -158,24 +182,25 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 18px;
-  border-radius: 14px;
+  gap: 6px;
+  padding: 12px;
+  border-radius: 12px;
   border: 1px solid var(--stroke);
   background: rgba(255,255,255,0.04);
   color: var(--text);
-  font-size: 15px;
+  font-size: 14px;
   box-shadow: 0 1px 0 rgba(0,0,0,0.08) inset;
+  min-height: 64px;
 }
 .grid-btn:active { transform: scale(0.98); }
 .grid-btn:focus { outline: 3px solid rgba(124,58,237,0.18); outline-offset: 3px; }
 
-.grid-icon { font-size: 28px; line-height: 1; }
-.grid-label { font-size: 14px; color: var(--text); }
+.grid-icon { font-size: 24px; line-height: 1; }
+.grid-label { font-size: 13px; color: var(--text); }
 
 @media (min-width: 480px) {
-  .grid-icon { font-size: 34px; }
-  .grid-btn { padding: 22px; }
+  .grid-icon { font-size: 28px; }
+  .grid-btn { padding: 16px; }
 }
 
 h1, p {
@@ -228,3 +253,61 @@ h1, p {
 
 /* Accessibility helper */
 .visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; }
+
+/* Entries form + feed */
+.entry-creator { margin-bottom: 12px; }
+.entry-form { display: flex; flex-direction: column; gap: 10px; }
+.entry-title { padding: 10px 12px; border-radius: 12px; border: 1px solid var(--stroke); background: rgba(255,255,255,0.02); color: var(--text); }
+.entry-category { padding: 10px 12px; border-radius: 12px; border: 1px solid var(--stroke); background: rgba(255,255,255,0.02); color: var(--text); }
+.entry-body { padding: 12px; border-radius: 12px; border: 1px solid var(--stroke); background: rgba(255,255,255,0.02); color: var(--text); resize: vertical; min-height: 96px; }
+.entry-actions { display: flex; justify-content: flex-end; }
+.save-entry { padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); background: linear-gradient(180deg, rgba(124,58,237,0.14), rgba(124,58,237,0.08)); color: var(--accent); font-weight: 600; }
+
+.entries-feed { margin-top: 8px; }
+.feed-title { margin: 6px 0; font-size: 16px; color: var(--muted); text-align: left; }
+.entries-list { display: flex; flex-direction: column; gap: 12px; }
+.entry-card { padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); }
+.entry-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.entry-title-display { font-weight: 700; font-size: 16px; color: var(--text); flex: 1; }
+.entry-meta { font-size: 12px; color: var(--muted); }
+.entry-body-display { font-size: 15px; color: var(--text); white-space: pre-wrap; }
+.entry-category-badge { padding: 6px 8px; border-radius: 10px; font-size: 13px; color: white; font-weight: 600; }
+
+/* Stats grid for Tracker & Progress (2x2) */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.stat-card {
+  padding: 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.04);
+  background: rgba(255,255,255,0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+.stat-label { font-size: 13px; color: var(--muted); }
+.stat-value { font-size: 18px; font-weight: 700; color: var(--text); display: flex; align-items: center; gap: 8px; }
+.stat-badge { padding: 6px 8px; border-radius: 10px; color: white; font-weight: 700; font-size: 13px; }
+
+@media (min-width: 720px) {
+  .stats-grid { gap: 16px; }
+  .stat-card { padding: 18px; }
+}
+
+/* Category distribution chart */
+.stats-chart-section { margin-top: 12px; }
+.category-chart { display: flex; flex-direction: column; gap: 8px; }
+.chart-row { display: flex; align-items: center; gap: 10px; }
+.chart-label { width: 28%; min-width: 100px; font-size: 14px; color: var(--text); font-weight: 600; text-align: left; }
+.chart-bar-wrap { flex: 1; background: rgba(255,255,255,0.03); border-radius: 10px; padding: 6px; }
+.chart-bar { height: 18px; border-radius: 8px; background: var(--accent); width: 0%; transition: width 420ms cubic-bezier(.2,.9,.25,1); }
+.chart-value { width: 56px; text-align: right; font-size: 13px; color: var(--muted); }
+
+@media (max-width: 420px) {
+  .chart-label { width: 36%; min-width: 80px; font-size: 13px; }
+  .chart-value { width: 48px; font-size: 12px; }
+}
