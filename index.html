@@ -48,7 +48,28 @@
           <p>What you do is what you get</p>
         </header>
         <div class="page__body">
-          <p><u>Entries</u></p>
+          <section class="entry-creator">
+            <form id="entry-form" class="entry-form" aria-label="Create entry" onsubmit="return false;">
+              <input id="entry-title" class="entry-title" type="text" placeholder="Title" aria-label="Entry title" required />
+
+              <select id="entry-category" class="entry-category" aria-label="Select category">
+                <option value="">Choose category</option>
+              </select>
+
+              <textarea id="entry-body" class="entry-body" rows="4" placeholder="Write your journal entry..." aria-label="Journal text" required></textarea>
+
+              <div class="entry-actions">
+                <button id="save-entry" class="save-entry" type="button">Save Entry</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="entries-feed" aria-live="polite">
+            <h2 class="feed-title">Feed</h2>
+            <div id="entries-list" class="entries-list">
+              <!-- entries appended here -->
+            </div>
+          </section>
         </div>
       </article>
 
@@ -62,23 +83,57 @@
           <div class="quick-grid" role="group" aria-label="Quick actions">
             <button class="grid-btn" data-action="quick" aria-label="Quick entry">
               <span class="grid-icon">⚡</span>
-              <span class="grid-label">Quick Entry</span>
+              <span class="grid-label">Add Entry</span>
             </button>
 
             <button class="grid-btn" data-action="long" aria-label="Long entry">
               <span class="grid-icon">📝</span>
-              <span class="grid-label">Long Entry</span>
+              <span class="grid-label">Log Activity</span>
             </button>
 
             <button class="grid-btn" data-action="picture" aria-label="Add picture">
               <span class="grid-icon">📷</span>
-              <span class="grid-label">Add Picture</span>
+              <span class="grid-label">Add Media</span>
             </button>
 
             <button class="grid-btn" data-action="video" aria-label="Add video">
               <span class="grid-icon">🎥</span>
-              <span class="grid-label">Add Video</span>
+              <span class="grid-label">Habit Check</span>
             </button>
+          </div>
+          
+          <div class="mood-check" aria-label="Mood check">
+            <div class="mood-header">
+              <strong>Mood Check</strong>
+              <div class="mood-desc">How are you feeling right now?</div>
+            </div>
+
+            <div class="mood-controls">
+              <div class="mood-scale">
+                <span class="mood-label mood-bad" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M8 15c1.2-1.5 3.2-1.5 4.5 0" transform="translate(0,2)"></path>
+                    <circle cx="9" cy="10" r="1"></circle>
+                    <circle cx="15" cy="10" r="1"></circle>
+                  </svg>
+                </span>
+                <input id="mood-slider" class="mood-slider" type="range" min="1" max="5" step="1" value="3" aria-label="Mood slider" />
+                <span class="mood-label mood-great" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <path d="M8 13c1.2 1.5 3.2 1.5 4.5 0" transform="translate(0,0)"></path>
+                    <circle cx="9" cy="10" r="1"></circle>
+                    <circle cx="15" cy="10" r="1"></circle>
+                  </svg>
+                </span>
+              </div>
+
+              <div class="mood-status">
+                <span id="mood-text" class="mood-text">Neutral</span>
+                <button id="log-mood" class="add-btn" type="button">Log Mood</button>
+              </div>
+            </div>
           </div>
         </div>
       </article>
@@ -90,7 +145,35 @@
           <p>This is your LIFE</p>
         </header>
         <div class="page__body">
-          <p><u>Tracker & Progress</u></p>
+          <section class="stats-overview">
+            <div class="stats-grid" role="region" aria-label="Tracking and progress">
+              <div class="stat-card" id="stat-most">
+                <div class="stat-label">Most logged category</div>
+                <div class="stat-value">—</div>
+              </div>
+
+              <div class="stat-card" id="stat-least">
+                <div class="stat-label">Least used category</div>
+                <div class="stat-value">—</div>
+              </div>
+
+              <div class="stat-card" id="stat-7d">
+                <div class="stat-label">Logs (last 7 days)</div>
+                <div class="stat-value">0</div>
+              </div>
+
+              <div class="stat-card" id="stat-30d">
+                <div class="stat-label">Logs (last 30 days)</div>
+                <div class="stat-value">0</div>
+              </div>
+            </div>
+          </section>
+          <section class="stats-chart-section">
+            <h2 class="feed-title">Category distribution</h2>
+            <div id="category-chart" class="category-chart" aria-hidden="false">
+              <!-- chart rows rendered here -->
+            </div>
+          </section>
         </div>
       </article>
 
