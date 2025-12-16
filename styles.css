@@ -81,27 +81,33 @@ body {
   gap: 10px;
   padding: 10px;
   border-radius: 18px;
-  border: 1px solid var(--stroke);
-  background: rgba(0,0,0,0.35);
-  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04); /* subtle translucent white */
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
+  backdrop-filter: blur(12px) saturate(130%);
+  box-shadow: 0 6px 20px rgba(11,14,14,0.14);
 }
 
 .nav__btn {
-  border: 1px solid var(--stroke);
-  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02); /* very subtle button glass */
   color: var(--text);
-  border-radius: 14px;
+  border-radius: 12px;
   font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6px;
+  padding: 8px;
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  transition: transform 160ms ease, background-color 160ms ease, color 160ms ease, box-shadow 160ms ease;
 }
 .nav__btn:active { transform: scale(0.98); }
 .nav__btn.is-active {
   border-color: rgba(124,58,237,0.65);
-  background: rgba(124,58,237,0.22);
+  background: linear-gradient(180deg, rgba(124,58,237,0.16), rgba(124,58,237,0.10));
   color: var(--accent);
+  box-shadow: 0 6px 14px rgba(124,58,237,0.12);
 }
 
 .nav__btn svg {
@@ -175,3 +181,50 @@ body {
 h1, p {
   text-align: center;
 }
+
+/* Categories manager */
+.categories-manager { display: flex; flex-direction: column; gap: 12px; }
+.category-form { display: flex; gap: 8px; align-items: center; justify-content: center; }
+.cat-input { flex: 1; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--stroke); background: rgba(255,255,255,0.02); color: var(--text); }
+.cat-color { width: 44px; height: 44px; padding: 4px; border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; background: transparent; }
+.add-btn { padding: 10px 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.06); background: linear-gradient(180deg, rgba(124,58,237,0.14), rgba(124,58,237,0.08)); color: var(--accent); font-weight: 600; }
+.add-btn:active { transform: translateY(1px); }
+
+.categories-list { display: flex; flex-direction: column; gap: 8px; margin: 6px 0 0; padding: 0; list-style: none; }
+.category-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.04); background: rgba(255,255,255,0.02); justify-content: center; }
+.category-color-swatch { width: 30px; height: 30px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.12); flex-shrink: 0; }
+.category-name { font-size: 18px; color: var(--text); flex: 0 1 auto; text-align: center; max-width: 55%; font-weight: 600; }
+.category-edit, .category-remove { margin-left: 6px; background: transparent; border: none; color: rgba(255,255,255,0.95); padding: 6px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; }
+.category-edit svg, .category-remove svg { width: 16px; height: 16px; display: block; }
+.category-edit:hover, .category-remove:hover { background: rgba(255,255,255,0.02); }
+.category-remove:active, .category-edit:active { transform: scale(0.98); }
+
+/* Drag handle + drag states */
+.drag-handle {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  margin-right: 6px;
+  cursor: grab;
+}
+.drag-handle:active { cursor: grabbing; }
+.drag-handle svg { width: 16px; height: 16px; display: block; }
+
+.category-item.dragging { opacity: 0.5; transform: scale(0.98); }
+.category-item.drag-over { outline: 2px dashed rgba(255,255,255,0.08); }
+
+/* Edit mode controls */
+.edit-controls { display: flex; gap: 8px; align-items: center; width: 100%; }
+.edit-input { flex: 1; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--stroke); background: rgba(255,255,255,0.02); color: var(--text); }
+.edit-color { width: 38px; height: 38px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); }
+.save-btn, .cancel-btn { padding: 8px 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); color: var(--text); }
+.save-btn { background: linear-gradient(180deg, rgba(124,58,237,0.14), rgba(124,58,237,0.08)); color: var(--accent); font-weight: 600; }
+.cancel-btn { opacity: 0.85; }
+
+/* Accessibility helper */
+.visually-hidden { position: absolute !important; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px); white-space: nowrap; }
